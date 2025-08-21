@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import TaskForm from "../components/TaskForm";
 import TaskList from "../components/TaskList";
+const API = import.meta.env.VITE_API_BASE_URL;
 
 const TaskPage = () => {
   const [tasks, setTasks] = useState([]);
@@ -11,8 +12,12 @@ const TaskPage = () => {
 
   // Fetch tasks
   const fetchTasks = async () => {
-    const res = await axios.get(`${API}/tasks`);
+    try {
+    const res = await axios.get(`${API}/tasks`, { withCredentials: true });
     setTasks(res.data);
+  } catch (err) {
+    console.error("Error fetching tasks:", err);
+  }
   };
 
   useEffect(() => {
