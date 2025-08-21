@@ -2,22 +2,20 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import TaskForm from "../components/TaskForm";
 import TaskList from "../components/TaskList";
+
 const API = import.meta.env.VITE_API_BASE_URL;
 
 const TaskPage = () => {
   const [tasks, setTasks] = useState([]);
 
-  // Use API URL from env
-  const API = import.meta.env.VITE_API_BASE_URL;
-
   // Fetch tasks
   const fetchTasks = async () => {
     try {
-    const res = await axios.get(`${API}/tasks`, { withCredentials: true });
-    setTasks(res.data);
-  } catch (err) {
-    console.error("Error fetching tasks:", err);
-  }
+      const res = await axios.get(`${API}/tasks`);
+      setTasks(res.data);
+    } catch (err) {
+      console.error("Error fetching tasks:", err);
+    }
   };
 
   useEffect(() => {
@@ -42,15 +40,8 @@ const TaskPage = () => {
         <h1 className="text-4xl font-bold text-center text-gray-800 mb-8">
           ✅ MERN Todo
         </h1>
-        <TaskForm
-          className="mb-8 bg-white p-6 rounded-lg shadow-md"
-          addTask={addTask}
-        />
-        <TaskList
-          className="bg-white p-6 rounded-lg shadow-md"
-          tasks={tasks}
-          deleteTask={deleteTask}
-        />
+        <TaskForm className="mb-8 bg-white p-6 rounded-lg shadow-md" addTask={addTask} />
+        <TaskList className="bg-white p-6 rounded-lg shadow-md" tasks={tasks} deleteTask={deleteTask} />
       </div>
     </div>
   );
