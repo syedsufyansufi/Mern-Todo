@@ -22,7 +22,7 @@ router.post("/", async (req, res) => {
 
 router.delete("/:id", async (req, res) => {
   await Task.findByIdAndDelete(req.params.id);
-  res.json({ massage: "Task Deleted" });
+  res.json({ message: "Task Deleted" });
 });
 
 export default router;

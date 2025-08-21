@@ -3,14 +3,16 @@ import dotenv from "dotenv";
 import express from "express";
 import { connectDB } from "./db.js";
 import taskRoutes from "./Routes/taskRoutes.js";
-dotenv.config();
 
+
+dotenv.config();
 const app = express();
+
 
 app.use(cors());
 app.use(express.json());
 
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 //db connect
 connectDB();
