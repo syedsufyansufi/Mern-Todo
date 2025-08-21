@@ -4,34 +4,30 @@ import express from "express";
 import { connectDB } from "./db.js";
 import taskRoutes from "./Routes/taskRoutes.js";
 
-
 dotenv.config();
 const app = express();
 
-
+// ✅ CORS - allow only your frontend
 app.use(cors({
-  origin: process.env.FRONTEND_URL, 
+  origin: process.env.FRONTEND_URL, // "https://mern-todo-beta-six.vercel.app"
+  methods: ["GET", "POST", "DELETE", "PUT"],
   credentials: true,
 }));
 
-// app.use(cors({ origin: "*" }));
-
-
+// Middleware
 app.use(express.json());
 
-const PORT = process.env.PORT || 3000;
-
-//db connect
+// ✅ Connect DB
 connectDB();
 
-//routes
-
+// ✅ Routes
 app.use("/tasks", taskRoutes);
 
 app.get("/", (req, res) => {
   res.send("Hello MERN TODO");
 });
 
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () =>
-  console.log(`Server running On Port http://localhost:${PORT}`)
+  console.log(`🚀 Server running on port ${PORT}`)
 );
